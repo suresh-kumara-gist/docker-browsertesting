@@ -1,4 +1,4 @@
-casper.test.begin('Test Google.com', 1, function(test) {
+casper.test.begin('Test Google.com', 2, function(test) {
   casper.start('http://google.com', function() {
     this.fill('form[action="/search"]', {
       'q': 'javascript'
@@ -6,7 +6,8 @@ casper.test.begin('Test Google.com', 1, function(test) {
   });
 
   casper.then(function() {
-    test.assertTitle('javascript - Google Search', 'Google search results page doesnt have expected title');
+    test.assertTitleMatch(/^.*javascript.*$/, 'Google search results page doesnt have expected title');
+    test.assertTitleMatch(/^.*Google.*$/, 'Google search results page doesnt have expected title');
   });
 
   casper.run(function() {
