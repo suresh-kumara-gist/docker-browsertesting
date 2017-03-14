@@ -7,7 +7,7 @@ docker build -t local-browsertesting .
 
 BASE="$(pwd)"
 
-cd "$BASE"/examples && ./build-app.sh
+cd "$BASE"/example02 && ./build-app.sh
 cd "$BASE"
 
 docker run -v "$(pwd)"/example01/test:/app/code \
