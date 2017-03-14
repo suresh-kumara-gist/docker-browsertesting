@@ -1,3 +1,4 @@
+# This is an app for demonstration purposes. It is a simple to do list.
 FROM httpd
 
 RUN apt-get update -y
