@@ -36,3 +36,4 @@ against it.
 Resources:
 
  * [End To End Testing with PhantomJS and CasperJS, David Tang, February 28th, 2015, The JS Guy](http://thejsguy.com/2015/02/28/end-to-end-testing-with-phantomsjs-and-casperjs.html).
+ * [This image on the Docker hub](https://hub.docker.com/r/dcycle/browsertesting/).
