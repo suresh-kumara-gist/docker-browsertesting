@@ -20,7 +20,7 @@ DATE=`date '+%Y-%m-%d-%H-%M-%S-%Z'`
 VERSION='1.1'
 
 # Start by getting the latest version of the official drupal image
-docker pull node
+docker pull node:7
 # Rebuild the entire thing
 docker build --no-cache -t dcycle/browsertesting:"$VERSION" .
 docker build -t dcycle/browsertesting:"$VERSION".$DATE .
