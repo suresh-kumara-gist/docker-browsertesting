@@ -17,7 +17,7 @@ else
 fi
 
 DATE=`date '+%Y-%m-%d-%H-%M-%S-%Z'`
-VERSION='1.1'
+VERSION='1.2'
 
 # Start by getting the latest version of the official drupal image
 docker pull node:7
