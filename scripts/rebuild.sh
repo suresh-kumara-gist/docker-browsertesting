@@ -17,15 +17,19 @@ else
 fi
 
 DATE=`date '+%Y-%m-%d-%H-%M-%S-%Z'`
-VERSION='1.2'
+MAJORVERSION='2'
+VERSION='2.0'
 
 # Start by getting the latest version of the official drupal image
-docker pull node:7
+docker pull node
 # Rebuild the entire thing
 docker build --no-cache -t dcycle/browsertesting:"$VERSION" .
+docker build -t dcycle/browsertesting:"$MAJORVERSION" .
+docker build -t dcycle/browsertesting:"$MAJORVERSION".$DATE .
 docker build -t dcycle/browsertesting:"$VERSION".$DATE .
-docker build -t dcycle/browsertesting:latest .
 docker login -u"$DOCKERHUBUSER" -p"$DOCKERHUBPASS"
 docker push dcycle/browsertesting:"$VERSION"
+docker push dcycle/browsertesting:"$MAJORVERSION"
 docker push dcycle/browsertesting:"$VERSION"."$DATE"
-docker push dcycle/browsertesting:latest
+docker push dcycle/browsertesting:"$MAJORVERSION"."$DATE"
+# No longer using the latest tag, use the major version tag instead.

@@ -1,21 +1,30 @@
-casper.test.begin('Test To Do application', 4, function(test) {
-  casper.start('http://myapp/todomvc/examples/angularjs', function() {
-    this.fillSelectors('form#todo-form', {
-      '#new-todo': 'call mom'
-    }, true);
-  });
+// See https://github.com/graphcool/chromeless/blob/master/examples/mocha-chai-test-example.js
+const { Chromeless } = require('chromeless')
+const { expect } = require('chai')
 
-  casper.then(function() {
-    test.assertSelectorHasText('#todo-count', 'item left');
-    test.assertSelectorDoesntHaveText('#todo-count', 'items left');
-    this.fillSelectors('form#todo-form', {
-      '#new-todo': 'buy cookies'
-    }, true);
-    test.assertSelectorHasText('#todo-count', 'items left');
-    test.assertSelectorDoesntHaveText('#todo-count', 'item left');
-  });
+// make sure you do npm i chai
+// to run this example just run
+// mocha path/to/this/file
 
-  casper.run(function() {
-    test.done();
-  });
-});
+describe('Test To Do application', function () {
+  it('allows entering to do items', async function () {
+    this.timeout(10000); //we need to increase the timeout or else mocha will exit with an error
+    const chromeless = new Chromeless()
+
+    const screenshot = await chromeless.goto('http://myapp/todomvc/examples/angularjs')
+      .wait('#new-todo')
+      .type('call mom', '#new-todo')
+      .press(13) // press enter
+      .screenshot();
+
+    const result = await chromeless.exists('#todo-count')
+    expect(result).to.be.true
+
+    chromeless.type('buy cookies', '#new-todo')
+      .focus('#new-todo')
+      .press(13) // press enter
+      .screenshot();
+
+    await chromeless.end()
+  })
+})

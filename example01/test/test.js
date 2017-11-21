@@ -1,16 +1,22 @@
-casper.test.begin('Test Google.com', 2, function(test) {
-  casper.start('http://google.com', function() {
-    this.fill('form[action="/search"]', {
-      'q': 'javascript'
-    }, true);
-  });
+// See https://github.com/graphcool/chromeless/blob/master/examples/mocha-chai-test-example.js
+const { Chromeless } = require('chromeless')
+const { expect } = require('chai')
 
-  casper.then(function() {
-    test.assertTitleMatch(/^.*javascript.*$/, 'Google search results page doesnt have expected title');
-    test.assertTitleMatch(/^.*Google.*$/, 'Google search results page doesnt have expected title');
-  });
+describe('When searching on google', function () {
+  it('shows results', async function () {
+    this.timeout(10000); //we need to increase the timeout or else mocha will exit with an error
+    const chromeless = new Chromeless()
 
-  casper.run(function() {
-    test.done();
-  });
-});
+    const screenshot = await chromeless.goto('https://google.com')
+      .wait('input[name="q"]')
+      .type('chromeless github', 'input[name="q"]')
+      .press(13) // press enter
+      .wait('#resultStats')
+      .screenshot();
+
+    const result = await chromeless.exists('a[href*="graphcool/chromeless"]')
+
+    expect(result).to.be.true
+    await chromeless.end()
+  })
+})

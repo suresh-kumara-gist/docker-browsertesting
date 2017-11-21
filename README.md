@@ -19,8 +19,9 @@ Simple example
 
 This example makes sure it is possible to perform a search on Google.com.
 
-    docker run -v "$(pwd)"/example01/test:/app/code \
-      dcycle/browsertesting code/test.js
+    docker run -v "$(pwd)"/example01/test:/app/test \
+      -v "$(pwd)"/artifacts:/artifacts \
+      dcycle/browsertesting:2
 
 Example with your own app
 -----
