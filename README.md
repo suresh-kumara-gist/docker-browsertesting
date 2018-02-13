@@ -7,7 +7,7 @@ Technologies
 -----
 
  * Branch 2 (**this branch**): Chrome Headless and Mocha.
- * Branch 1 (legacy): [PhantomJS](http://phantomjs.org), a headless browser, and [Casper](http://casperjs.org), the testing framework.
+ * [Branch 1 (legacy)](https://github.com/dcycle/docker-browsertesting/tree/1): [PhantomJS](http://phantomjs.org), a headless browser, and [Casper](http://casperjs.org), the testing framework.
 
 Prerequisites
 -----
