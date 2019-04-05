@@ -1,14 +1,11 @@
 #!/bin/bash
 #
 # This is the entrypoint to the container.
-# We need to start Chrome in the background, then run our tests.
 # Once this script exits, the container will be destroyed.
 #
-echo -e '[info] Starting chrome in the background.'
-# https://unix.stackexchange.com/questions/103731
-/scripts/start-chrome.sh > output.log 2>&1 &
 echo -e '[info] Running all tests with mocha in /app/test/*.js'
-# See https://stackoverflow.com/a/12451419/1207752
+# See https://stackoverflow.com/a/12451419/1207752. Capturing the output
+# in a variable, but display it nonetheless.
 exec 5>&1
 OUTPUT=$(/app/node_modules/mocha/bin/mocha test/*.js|tee >(cat - >&5))
 
@@ -24,7 +21,7 @@ if [[ "$OUTPUT" = *"Exception alert"* ]]; then
   echo "Exiting with 2"
   exit 2
 elif [[ "$OUTPUT" = *"AssertionError"* ]]; then
-  echo "Our output contains 'Exception alert'"
+  echo "Our output contains 'AssertionError'"
   echo "Exiting with 2"
   exit 1
 else

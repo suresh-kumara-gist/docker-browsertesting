@@ -1,22 +1,27 @@
-const { Chromeless } = require('chromeless')
 const { expect } = require('chai')
+const fs = require('fs')
 
-it('Example of a test which always fails because an expected selector is not present', async function() {
-  this.timeout(2000);
-  const chromeless = new Chromeless()
-
+it('This always fails; it is looking for a selector which does not exist', async function() {
+  this.timeout(15000);
+  const puppeteer = require('puppeteer')
+  const browser = await puppeteer.launch({
+     headless: true,
+     args: ['--no-sandbox', '--disable-setuid-sandbox']
+  })
+  var result = false
   try {
-    const result = await chromeless
-      .goto('https://www.google.com')
-      .wait('.this-selector-is-not-present')
-      // No screenshot is ever made.
-      .screenshot();
-      console.log('This is never called');
-  } catch(err) {
-    // The exact string "Exception alert" is important here, as its
-    // presence causes a non-0 exit code in ./docker-resources/run-tests.sh.
-    console.log('Exception alert.');
+    const page = await browser.newPage()
+    console.log('set viewport')
+    await page.setViewport({ width: 1280, height: 800 })
+    await page.goto('https://www.amazon.com')
+    console.log('This is logged');
+    await page.waitForSelector('#this-does-not-exist')
+    console.log('This is never logged');
   }
-
-  await chromeless.queue.chrome.close()
+  catch (error) {
+    console.log('Exception alert')
+    await browser.close()
+    console.log(error);
+  }
+  await browser.close()
 });

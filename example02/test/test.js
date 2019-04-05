@@ -1,43 +1,47 @@
-// See https://github.com/graphcool/chromeless/blob/master/examples/mocha-chai-test-example.js
-const { Chromeless } = require('chromeless')
 const { expect } = require('chai')
+const fs = require('fs')
 
-describe('Test To Do application', function () {
-  it('allows entering to do items', async function () {
-    this.timeout(10000);
-
-    const chromeless = new Chromeless()
-
-    try {
-      console.log('About to take a screenshot of the to do app.');
-      const screenshot = await chromeless.goto('http://myapp-container/todomvc/examples/angularjs/')
-        .screenshot();
-      console.log('Successfully took a screenshot of the app.');
-
-      console.log('About to type something into the to do app.');
-      const screenshot2 = await chromeless.goto('http://myapp-container/todomvc/examples/angularjs/')
-        .wait('.new-todo')
-        .type('call mom', '.new-todo')
-        .press(13) // press enter
-        .screenshot();
-      console.log('Successfully typed something into the to do app.');
-
-      console.log('Confirming that the .todo-count selector is present.');
-      const result = await chromeless.exists('.todo-count')
-      expect(result).to.be.true
-
-      //
-      // chromeless.type('buy cookies', '#new-todo')
-      //   .focus('#new-todo')
-      //   .press(13) // press enter
-      //   .screenshot();
-      //
-    } catch(err) {
-      // The exact string "Exception alert" is important here, as its
-      // presence causes a non-0 exit code in ./docker-resources/run-tests.sh.
-      console.log('Exception alert.');
-    }
-
-    await chromeless.queue.chrome.close()
-  });
-})
+it('It should be possible to add a "todo" item to our app', async function() {
+  this.timeout(15000);
+  const puppeteer = require('puppeteer')
+  const browser = await puppeteer.launch({
+     headless: true,
+     args: ['--no-sandbox', '--disable-setuid-sandbox']
+  })
+  var result = false
+  try {
+    const page = await browser.newPage()
+    console.log('set viewport')
+    await page.setViewport({ width: 1280, height: 800 })
+    console.log('go to our todo app')
+    await page.goto('http://myapp-container/todomvc/examples/angularjs/')
+    console.log('taking a screenshot')
+    await page.screenshot({path: '/artifacts/todo-screenshot.png'})
+    console.log('About to type something into the to do app.')
+    await page.type('.new-todo', 'call mom')
+    await page.keyboard.press('Enter');
+    console.log('taking another screenshot')
+    await page.screenshot({path: '/artifacts/todo-screenshot2.png'})
+    console.log('Successfully typed something into the to do app.');
+    console.log('Confirming that the .todo-count selector is present.');
+    await page.waitForSelector('.todo-count')
+    // if any of the above fail, an exception will be thrown.
+    var html = await page.content();
+    fs.writeFile("/artifacts/todo-screenshot.html", html, function(err) {
+      if (err) {
+        return console.log(err);
+      }
+      else {
+        console.log('File has been saved.');
+        result = true
+      }
+      expect(result).to.be.true;
+    });
+  }
+  catch (error) {
+    console.log('Exception alert')
+    await browser.close()
+    console.log(error);
+  }
+  await browser.close()
+});

@@ -1,18 +1,10 @@
 # See
-# https://github.com/graphcool/chromeless
+# https://github.com/GoogleChrome/puppeteer
 FROM node
 
 RUN mkdir -p /app/code
 
-RUN cd /app && npm install chromeless
-
-# Install Chrome 60 or higher
-# See https://askubuntu.com/questions/510056
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-RUN echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | tee /etc/apt/sources.list.d/google-chrome.list
-RUN apt-get -y update
-RUN apt-get -y install google-chrome-stable
-RUN ln -s /opt/google/chrome/chrome /bin/chrome
+RUN cd /app && npm install puppeteer
 
 WORKDIR /app
 RUN npm install mocha chai
@@ -20,5 +12,10 @@ RUN npm install mocha chai
 ADD docker-resources /scripts
 ADD example01/test /app/test
 RUN mkdir /artifacts
+
+# We need to install a bunch of dependencies to avoid errors when
+# Chromium is run.
+RUN apt-get -y update
+RUN apt-get -y install gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget
 
 ENTRYPOINT [ "/scripts/run-tests.sh" ]
