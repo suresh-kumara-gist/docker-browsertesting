@@ -16,6 +16,8 @@ else
   source "$CREDENTIALS";
 fi
 
+./ci.sh
+
 DATE=`date '+%Y-%m-%d-%H-%M-%S-%Z'`
 MAJORVERSION='3'
 VERSION='3.0'

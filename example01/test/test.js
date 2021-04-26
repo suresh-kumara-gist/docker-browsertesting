@@ -11,17 +11,19 @@ it('It should be possible to search for something on Google', async function() {
   var result = false
   try {
     const page = await browser.newPage()
-    console.log('set viewport')
+    console.log('...set viewport')
     await page.setViewport({ width: 1280, height: 800 })
-    console.log('go to google homepage')
+    console.log('...go to google homepage')
     await page.goto('https://google.com')
-    console.log('input "puppeteer"')
+    console.log('...input "puppeteer"')
     await page.type('input[name="q"]', 'puppeteer')
+    console.log('...about to press enter')
     await page.keyboard.press('Enter');
-    await page.waitForSelector('#resultStats')
-    console.log('taking a screenshot')
+    console.log('...waiting for selector')
+    await page.waitForSelector('#taw')
+    console.log('...taking a screenshot')
     await page.screenshot({path: '/artifacts/a-screenshot.png'})
-    console.log('saving state of the DOM (source code)')
+    console.log('...saving state of the DOM (source code)')
     var html = await page.content();
     fs.writeFile("/artifacts/a-screenshot.html", html, function(err) {
       if (err) {
