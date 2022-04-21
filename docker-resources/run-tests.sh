@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 #
 # This is the entrypoint to the container.
 # Once this script exits, the container will be destroyed.

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 #
 # Build the image locally and test. Useful for development.
 #

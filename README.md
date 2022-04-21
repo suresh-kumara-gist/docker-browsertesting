@@ -1,4 +1,4 @@
-Test your code in a headless browser.
+Test your website in a headless browser.
 =====
 
 [![CircleCI](https://circleci.com/gh/dcycle/docker-browsertesting/tree/3.svg?style=svg)](https://circleci.com/gh/dcycle/docker-browsertesting/tree/3)
@@ -6,9 +6,7 @@ Test your code in a headless browser.
 Technologies
 -----
 
-* Branch 3 (**this branch**): Chrome Headless, Puppeteer, Mocha and Chai.
-* [Branch 2 (legacy)](https://github.com/dcycle/docker-browsertesting/tree/2): Chrome Headless, Chromeless, Mocha and Chai.
-* [Branch 1 (legacy)](https://github.com/dcycle/docker-browsertesting/tree/1): PhantomJS and Casper.
+Test any website using Chrome Headless, Puppeteer, Mocha and Chai.
 
 Prerequisites
 -----
@@ -22,7 +20,7 @@ This example makes sure it is possible to perform a search on Google.com.
 
     docker run --rm -v "$(pwd)"/example01/test:/app/test \
       -v "$(pwd)"/artifacts:/artifacts \
-      dcycle/browsertesting:3
+      dcycle/browsertesting:4
 
 Example with your own app
 -----
@@ -34,22 +32,22 @@ against it.
     docker run --rm -v "$(pwd)"/example02/test:/app/test \
       -v "$(pwd)"/artifacts:/artifacts \
       --network myapp-network \
-      dcycle/browsertesting:3 test/test.js
+      dcycle/browsertesting:4 test/test.js
 
 Other examples
 -----
 
     docker run --rm -v "$(pwd)"/example01/failing-test-example:/app/test \
       -v "$(pwd)"/artifacts:/artifacts \
-      dcycle/browsertesting:3
+      dcycle/browsertesting:4
 
     docker run --rm -v "$(pwd)"/example01/passing-test-example:/app/test \
       -v "$(pwd)"/artifacts:/artifacts \
-      dcycle/browsertesting:3
+      dcycle/browsertesting:4
 
     docker run --rm -v "$(pwd)"/example01/selector-not-present-example:/app/test \
       -v "$(pwd)"/artifacts:/artifacts \
-      dcycle/browsertesting:3
+      dcycle/browsertesting:4
 
 Resources:
 -----
