@@ -23,6 +23,13 @@ DATE=`date '+%Y-%m-%d-%H-%M-%S-%Z'`
 MAJORVERSION='3'
 VERSION='3.0'
 
+# See https://github.com/dcycle/prepare-docker-buildx, for M1 native images.
+git clone https://github.com/dcycle/prepare-docker-buildx.git
+cd prepare-docker-buildx
+export DOCKER_CLI_EXPERIMENTAL=enabled
+./scripts/run.sh
+cd ..
+
 docker buildx create --name mybuilder
 docker buildx use mybuilder
 docker buildx inspect --bootstrap
