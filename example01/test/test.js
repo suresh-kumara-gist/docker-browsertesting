@@ -16,7 +16,7 @@ it('It should be possible to search for something on Google', async function() {
     console.log('...go to google homepage')
     await page.goto('https://google.com')
     console.log('...input "puppeteer"')
-    await page.type('input[name="q"]', 'puppeteer')
+    await page.type('textarea[name="q"]', 'puppeteer')
     console.log('...about to press enter')
     await page.keyboard.press('Enter');
     console.log('...waiting for selector')
