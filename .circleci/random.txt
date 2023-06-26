@@ -1,3 +1,0 @@
-This file can be used to "nudge" CircleCI et rebuild (sometimes CircleCI "rebuild" functionality will not work):
-
-Random string: 6956
