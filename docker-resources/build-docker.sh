@@ -13,12 +13,15 @@ cd /app
 apk add --no-cache chromium
 
 npm install puppeteer
-# https://github.com/mochajs/mocha/issues/4880
-npm install mocha chai
+npm install mocha chai@4
 
 mkdir /artifacts
 apk add --no-cache \
+  libstdc++ \
   libstdc++6 \
+  && echo "Done adding libstdc (see https://stackoverflow.com/a/73396909/1207752)"
+
+apk add --no-cache \
   ca-certificates \
   xdg-utils \
   wget \

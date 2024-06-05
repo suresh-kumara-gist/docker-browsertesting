@@ -14,7 +14,7 @@ it('It should be possible to add a "todo" item to our app', async function() {
     console.log('set viewport')
     await page.setViewport({ width: 1280, height: 800 })
     console.log('go to our todo app')
-    await page.goto('http://myapp-container/todomvc/examples/angularjs/')
+    await page.goto('http://myapp-container/todomvc/examples/angularjs_require/')
     console.log('taking a screenshot')
     await page.screenshot({path: '/artifacts/todo-screenshot.png'})
     console.log('About to type something into the to do app.')
