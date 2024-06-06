@@ -13,7 +13,7 @@ cd /app
 apk add --no-cache chromium
 
 npm install puppeteer
-npm install mocha chai@4
+npm install mocha chai
 
 mkdir /artifacts
 apk add --no-cache \

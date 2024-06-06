@@ -20,8 +20,8 @@ fi
 
 PROJECT=browsertesting
 DATE=`date '+%Y-%m-%d-%H-%M-%S-%Z'`
-MAJORVERSION='4'
-VERSION='4.0'
+MAJORVERSION='5'
+VERSION='5.0'
 
 # See https://github.com/dcycle/prepare-docker-buildx, for M1 native images.
 git clone https://github.com/dcycle/prepare-docker-buildx.git

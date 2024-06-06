@@ -3,11 +3,11 @@
 # This is the entrypoint to the container.
 # Once this script exits, the container will be destroyed.
 #
-echo -e '[info] Running all tests with mocha in /app/test/*.js'
+echo -e '[info] Running all tests with mocha in /app/test/*.mjs'
 # See https://stackoverflow.com/a/12451419/1207752. Capturing the output
 # in a variable, but display it nonetheless.
 exec 5>&1
-OUTPUT=$(/app/node_modules/mocha/bin/_mocha test/*.js|tee >(cat - >&5))
+OUTPUT=$(/app/node_modules/mocha/bin/_mocha test/*.mjs|tee >(cat - >&5))
 
 # See https://stackoverflow.com/a/6364244/1207752.
 echo -e '[info] Move screenshots from /tmp to /artifacts if applicable'

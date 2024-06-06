@@ -1,14 +1,14 @@
-const { expect } = require('chai')
-const fs = require('fs')
+import puppeteer from 'puppeteer';
+import { expect } from 'chai';
+import fs from 'fs';
 
 it('It should be possible to add a "todo" item to our app', async function() {
   this.timeout(15000);
-  const puppeteer = require('puppeteer')
   const browser = await puppeteer.launch({
      headless: true,
      args: ['--no-sandbox', '--disable-setuid-sandbox']
   })
-  var result = false
+  let result = false
   try {
     const page = await browser.newPage()
     console.log('set viewport')
@@ -26,7 +26,7 @@ it('It should be possible to add a "todo" item to our app', async function() {
     console.log('Confirming that the .todo-count selector is present.');
     await page.waitForSelector('.todo-count')
     // if any of the above fail, an exception will be thrown.
-    var html = await page.content();
+    let html = await page.content();
     fs.writeFile("/artifacts/todo-screenshot.html", html, function(err) {
       if (err) {
         return console.log(err);

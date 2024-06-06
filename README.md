@@ -53,3 +53,27 @@ Resources:
 -----
 
 * [This image on the Docker hub](https://hub.docker.com/r/dcycle/browsertesting/).
+
+
+Migrating from tag 4 to tag 5:
+-----
+
+* Inorder to Migrate chai5 from chai4.
+```
+In ./docker-resources/build-docker.sh, change this line:
+npm install mocha chai@4
+for this one:
+npm install mocha chai
+This has the effect of using version 5 of chai instead of version 4.
+```
+* The headline change in Chai 5 is ESM.
+* To compile js to es6 we need to put { "type" : "module" } in package.json
+or else we need to modify file extension to .mjs.
+* [es6 features](https://www.w3schools.com/js/js_es6.asp)
+* this.timeout(15000) throws error if we put it inside arrow function.
+Hence shouldn't use arrow in that context.
+```
+it('It should be possible to search for something on Google', async function() {
+  this.timeout(15000);
+})
+```
